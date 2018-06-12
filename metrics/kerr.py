@@ -6,6 +6,10 @@ Created on Mon Apr 30 10:51:45 2018
 @author: ashcat
 """
 
+# Kerr Metric
+
+
+
 import numpy as np
 
 def Sigma(r,theta,a=0.):

@@ -1,0 +1,73 @@
+
+\chapter{The Minkowski Spacetime}.
+The Minkowski spacetime is given by the line element
+\begin{equation}
+	ds^2 = -dt^2 + dx^2 + dy^2 + dz^2
+\end{equation}
+or in spherical coordinates
+\begin{equation}
+ 	ds^2 = -dt^2 + dr^2 + r^2 d\theta^2 + r^2 \sin^2 \theta d\phi^2.
+\end{equation} 
+
+When compared with the standard form of the Kerr's line element in Boyer-Lindquist coordinates,
+\begin{align}
+	ds^2 = &-\left( 1- \frac{2Mr}{\Sigma} \right) dt^2 -\frac{4Mar\sin^2 \theta}{\Sigma} dt d\phi \nonumber  \\
+	&+ \frac{\Sigma}{\Delta} dr^2 +\Sigma d\theta^2 + \sin^2 \theta \left( r^2 + a^2 +\frac{2Ma^2 r \sin^2 \theta}{\Sigma} \right) d\phi^2,
+\end{align}
+Minkowski's metric is obtained by taking $a=0$, $M=0$ and
+\begin{align}
+	\Sigma &= r^2\\
+	\Delta &= r^2.
+\end{align}
+
+Therefore, the potentials in the description of a particle moving in this spacetime reduce to
+\begin{align}
+	R &= E^2 r^4 - r^2 \left[ r^2 + L^2 + Q \right] \\
+	\Theta &= Q -  \frac{\cos^2 \theta}{\sin^2 \theta}L^2
+\end{align}
+
+Then, we have the function
+\begin{align}
+	\Xi &= E^2 r^4 - r^2 \left[ r^2 + L^2 + Q \right] + r^2 \left[ Q -  \frac{\cos^2 \theta}{\sin^2 \theta}L^2 \right] \nonumber \\
+	\Xi &= E^2 r^4 -  r^4 -  L^2 r^2  - r^2 \frac{\cos^2 \theta}{\sin^2 \theta}L^2 
+\end{align}
+
+In order to write the equations of motion we need the derivatives
+\begin{align}
+\frac{\partial \Xi}{\partial E} &= 2E r^4 \\
+\frac{\partial \Xi}{\partial L} &= - 2 L r^2 -2 r^2 \frac{\cos^2 \theta}{\sin^2 \theta}L
+\end{align}
+and also
+\begin{align}
+\frac{\partial}{\partial r}\left( \frac{\Delta}{2\Sigma}\right) &= \frac{\partial}{\partial r}\left( \frac{1}{2}\right) = 0 \\
+\frac{\partial}{\partial r}\left( \frac{1}{2\Sigma}\right) &= \frac{\partial}{\partial r}\left( \frac{1}{2r^2}\right) = -\frac{1}{r^3}\\
+\frac{\partial}{\partial r}\left( \frac{\Xi}{2\Delta \Sigma}\right) &= \frac{\partial}{\partial r}\left( \frac{E^2 r^4 -  r^4 -  L^2 r^2  - r^2 \frac{\cos^2 \theta}{\sin^2 \theta} L^2}{2r^4}\right) \nonumber \\
+&= \frac{1}{2} \frac{\partial}{\partial r}\left( E^2 - 1 - \frac{L^2}{r^2} - \frac{\cos^2 \theta}{\sin^2 \theta} \frac{L^2}{r^2} \right) \nonumber \\
+&= \frac{L^2}{r^3} + \frac{\cos^2 \theta}{\sin^2 \theta} \frac{L^2}{r^3} 
+\end{align}
+
+\begin{align}
+\frac{\partial}{\partial \theta}\left( \frac{\Delta}{2\Sigma}\right) &= \frac{\partial}{\partial r}\left( \frac{1}{2}\right) = 0 \\
+\frac{\partial}{\partial \theta}\left( \frac{1}{2\Sigma}\right) &= \frac{\partial}{\partial r}\left( \frac{1}{2r^2}\right) = 0\\
+\frac{\partial}{\partial \theta}\left( \frac{\Xi}{2\Delta \Sigma}\right) &= \frac{\partial}{\partial \theta}\left( \frac{E^2 r^4 -  r^4 -  L^2 r^2  - r^2 \frac{\cos^2 \theta}{\sin^2 \theta} L^2}{2r^4}\right) \nonumber \\
+&= \frac{1}{2} \frac{\partial}{\partial \theta}\left( E^2 - 1 - \frac{L^2}{r^2} - \frac{\cos^2 \theta}{\sin^2 \theta} \frac{L^2}{r^2} \right) \nonumber \\
+&= \cot \theta \csc^2 \theta \frac{L^2}{r^2} 
+\end{align}
+
+Using this expressions, the equations of motion of a particle in this spacetime are given by the Hamilton's equations
+
+\begin{align*}
+	\dot{t} &= \frac{1}{2r^4} 2E r^4 = E\\
+	\dot{r} &= p_r \\
+	\dot{\theta} &= \frac{p_\theta}{r^2}\\
+	\dot{\phi} &= - \frac{1}{2r^4} \left[ - 2 L r^2 -2 r^2 \frac{\cos^2 \theta}{\sin^2 \theta}L \right] = \left[ 1 + \frac{\cos^2 \theta}{\sin^2 \theta} \right] \frac{L}{r^2} = \frac{L}{r^2 \sin^2 \theta}\\	
+\end{align*}
+
+
+\begin{align*}
+\dot{p}_t &= 0\\
+\dot{p}_r &= \frac{p_\theta^2}{r^3} + \frac{L^2}{r^3} + \frac{\cos^2 \theta}{\sin^2 \theta} \frac{L^2}{r^3} 
+          = \frac{p_\theta^2}{r^3} + \frac{1}{\sin^2 \theta} \frac{L^2}{r^3}\\
+\dot{p}_\theta &= \frac{\cos \theta}{\sin^3 \theta} \frac{L^2}{r^2}\\
+\dot{p}_\phi &= 0\\	
+\end{align*}

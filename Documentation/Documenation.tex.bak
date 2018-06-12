@@ -1,0 +1,19 @@
+\documentclass{book}
+
+\usepackage{amsmath, amssymb}
+\usepackage{siunitx}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+
+\begin{document}
+
+\title{Ray Trace}
+\author{E. Larra\~{n}aga}
+
+\maketitle
+\input{initialConditions.tex}
+\input{geodesics.tex}
+\input{Minkowski.tex}
+
+
+\end{document}

@@ -1,0 +1,40 @@
+
+\chapter{Geodesic Equations}.\\
+COnsider a general line element in Boyer-Lindquist coordinates,
+\begin{align*}
+	ds^2 = &-\left( 1- \frac{2Mr}{\Sigma} \right) dt^2 - -\frac{4Mar\sin^2 \theta}{\Sigma} dt d\phi\\
+	&+ \frac{\Sigma}{\Delta} dr^2 +\Sigma d\theta^2 + \sin^2 \theta \left( r^2 + a^2 +\frac{2Ma^2 r \sin^2 \theta}{\Sigma} \right) d\phi^2,
+\end{align*}
+\begin{align*}
+	\Sigma &= \Sigma(r,\theta)\\
+	\Delta &= \Delta(r).
+\end{align*}
+
+The equations of motion of a particle in this spacetime are 
+
+\begin{align*}
+	\dot{t} &= \frac{1}{2\Delta \Sigma} \frac{\partial \Xi}{\partial E}\\
+	\dot{r} &= \frac{\Delta}{\Sigma} p_r \\
+	\dot{\theta} &= \frac{p_\theta}{\Sigma}\\
+	\dot{\phi} &= - \frac{1}{2\Delta \Sigma} \frac{\partial \Xi}{\partial L}\\	
+\end{align*}
+
+\begin{align*}
+\dot{p}_t &= 0\\
+\dot{p}_r &= -\frac{\partial}{\partial r}\left( \frac{\Delta}{2\Sigma}\right) p_r^2 - \frac{\partial}{\partial r}\left( \frac{1}{2\Sigma}\right) p_\theta^2 + \frac{\partial}{\partial r}\left( \frac{\Xi}{2\Delta \Sigma}\right) \\
+\dot{p}_\theta &= -\frac{\partial}{\partial \theta}\left( \frac{\Delta}{2\Sigma}\right) p_r^2 - \frac{\partial}{\partial \theta}\left( \frac{1}{2\Sigma}\right) p_\theta^2 + \frac{\partial}{\partial \theta}\left( \frac{\Xi}{2\Delta \Sigma}\right)\\
+\dot{p}_\phi &= 0\\	
+\end{align*}
+
+\begin{align*}
+	\Xi &= R + \Delta \Theta \\
+	R &= P^2 - \Delta \left[ r^2 + (L-aE)^2 + Q \right] \\
+	P &= E(r^2 + a^2) - aL\\
+	\Theta &= Q - \cos^2 \theta \left[ a^2 (1-E^2) + \frac{L^2}{\sin^2 \theta} \right]
+\end{align*}
+
+
+
+
+
+

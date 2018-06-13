@@ -18,40 +18,27 @@ from geodesicIntegration import geoInt
 ########## Screen Definition ##########
 
 # Number of X and Y pixels
-screenX = 2
-screenY = 2
+screenX = 100
+screenY = 100
 
 if screenX & 1:
-    alphaMax = screenX - 1
+    alphaRange = np.arange(-(screenX-1)/2, (screenX-1)/2 +1)
 else:
-    alphaMax = screenX
+    alphaRange = np.arange(-(screenX)/2, (screenX)/2 +1)
 
 if screenY & 1:
-    betaMax = screenY - 1
+    betaRange = np.arange(-(screenY-1)/2, (screenY-1)/2 +1)
 else:
-    betaMax = screenY 
-    
-alphaRange = np.arange(-alphaMax/2, alphaMax/2 +1)
-betaRange = np.arange(-betaMax/2, betaMax/2 +1)
-
-print ("Size of the screen in Pixels:", alphaMax+1, "X", betaMax+1)
-print ("Number of Pixels: ", (alphaMax+1)*(betaMax+1))
-
-# Distance to the Black hole 
-D = 100.
-
-# Inclination of the image plane
-i = np.pi/4
-
-#######################################
+    betaRange = np.arange(-(screenY)/2, (screenY)/2 +1)
 
 
-rDataArray = np.zeros(((alphaMax+1),(betaMax+1)))
+print ("Number of Pixels: ", 4*alphaRange[0]*betaRange[0])
 
-print(rDataArray)
+
+
 
 # Define a photon       
-p = Photon(Alpha = 1., Beta = 0., D = D, i = i)    
+p = Photon(Alpha = 5., Beta = -5., i=np.pi/4)    
 
 # Initial position and momentum of the photon
 # p.xin

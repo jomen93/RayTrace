@@ -28,7 +28,7 @@ def g(x):
     
     return [gtt, gtphi, grr, gthth, gphph]
     
-def geodesics(x,tau):
+def geodesics(x, tau):
     '''
     This procedure contains the geodesic equations in Hamiltonian form 
     for the Minkowski metric

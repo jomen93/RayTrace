@@ -27,7 +27,7 @@ Procedures:
 import numpy as np
 
 class Photon:
-    def __init__(self, Alpha=0, Beta=0, freq=1., D=100, i = np.pi/4):
+    def __init__(self, Alpha=1., Beta=0., freq=1., D=100., i = np.pi/4):
         '''
         Given the initial coordinates in the image plane (X,Y), the distance D 
         to the force center and inclination angle i, this calculates the 
@@ -38,19 +38,20 @@ class Photon:
         self.Beta = Beta
         self.D = D
         self.i = i
-        '''
-        # Transformation from (Alpha, Beta, D) to (x, y, z) 
-        self.x = - self.Alpha*np.cos(self.i) + self.D*np.sin(i)
-        self.y = self.Beta
-        self.z = self.Alpha*np.sin(self.i) + self.D*np.cos(i)
-        '''
-                
+        
         # Transformation from (Alpha, Beta, D) to (r, theta, phi) 
         self.r = np.sqrt(self.Alpha**2 + self.Beta**2 + self.D**2)
         self.theta = np.arccos((self.Beta*np.sin(self.i)
                         +self.D*np.cos(self.i))/self.r)
         self.phi = np.arctan(self.Alpha/(self.D*np.sin(self.i)
                                         - self.Beta*np.cos(self.i)))
+        
+        '''
+        Initial values in spherical coordinates of the photon
+        (t=0, r, theta, phi)
+        '''   
+        self.xin = [0., self.r, self.theta, self.phi]
+        
                 
         '''
         Given the frequency value k0, this calculates the initial values for 
@@ -73,19 +74,27 @@ class Photon:
         
         self.kt = np.sqrt(self.kr**2 + self.r**2 * self.ktheta**2 
                           + self.r**2*(np.sin(self.theta))**2 *self.kphi**2)
-                
-    def xin(self):
+        
         '''
-        Returns the initial values for the spherical coordinates of the photon
-        (t=0, r, theta, phi)
+        Initial values in spherical coordinates for the 4-momentum of 
+        the photon(kt, kr, ktheta, kphi)
         '''   
-        return [0., self.r, self.theta, self.phi]
-
-
-    def kin(self):
+        self.kin = [self.kt, self.kr, self.ktheta, self.kphi]
+                
+    
+    def initConds(self, initialConds):
         '''
-        Returns the initial values for the 4-momentum of the photon
-        (kt, kr, ktheta, kphi)
-        '''  
-        return [self.kt, self.kr, self.ktheta, self.kphi]
+        Stores the initial values of coordinates and momentum needed 
+        to solve the geodesic equations.
+        '''
+        self.iC = initialConds
+        return 
+    
+    def finalPosition(self, finalPos):
+        '''
+        Stores the initial values of coordinates and momentum needed 
+        to solve the geodesic equations.
+        '''
+        self.fP = finalPos
+        return 
 

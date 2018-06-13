@@ -26,8 +26,8 @@ from initialConditions import initCond
 from metrics import minkowski as m       
  
 # Define a photon       
-p1 = Photon(Alpha = -5.0, Beta = 0.)    
-p2 = Photon(Alpha = 5.0, Beta = 5.)    
+p1 = Photon(Alpha = 5., Beta = 0.)    
+p2 = Photon(Alpha = -5.0, Beta = 5.)    
 
 # Initial position ans momentum of the photon
 xin1 = p1.xin() 
@@ -59,13 +59,12 @@ print(coords[len(coords)-1,1], "dE =",coords[0,4]-coords[len(coords)-1,4],
 z1 = coords1[:,1]*np.cos(coords1[:,2])
 x1 = coords1[:,1]*np.sin(coords1[:,2])*np.cos(coords1[:,3])
 y1 = coords1[:,1]*np.sin(coords1[:,2])*np.sin(coords1[:,3])
-
 z2 = coords2[:,1]*np.cos(coords2[:,2])
 x2 = coords2[:,1]*np.sin(coords2[:,2])*np.cos(coords2[:,3])
 y2 = coords2[:,1]*np.sin(coords2[:,2])*np.sin(coords2[:,3])
-
-
 '''
+
+
 xinit = np.array([ Photon().xin(),Photon(X=5., Y=5.).xin(), 
                   Photon(X=5., Y=-5.).xin(), Photon(X=-5., Y=5.).xin(),
                   Photon(X=-5., Y=-5.).xin(), [0,0,0,0] ])
@@ -73,11 +72,14 @@ xinit = np.array([ Photon().xin(),Photon(X=5., Y=5.).xin(),
 z = xinit[:,1]*np.cos(xinit[:,2])
 x = xinit[:,1]*np.sin(xinit[:,2])*np.cos(xinit[:,3])
 y = xinit[:,1]*np.sin(xinit[:,2])*np.sin(xinit[:,3])
-
-print(x,y,z)
 '''
+print([x1[1],y1[1]])
+
 fig = plt.figure()
 ax = fig.add_subplot(111, projection='3d')
 ax.scatter(x1, y1, z1)
 ax.scatter(x2, y2, z2)
+ax.set_xlim(0, 90)
+ax.set_zlim(0, 90)
+ax.set_ylim(0, 90)
 plt.show()

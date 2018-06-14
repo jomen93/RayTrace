@@ -12,33 +12,24 @@ import numpy as np
 from photon import Photon
 from initialConditions import initCond 
 from metrics import minkowski as m  
-from geodesicIntegration import geoInt     
+from geodesicIntegration import geoInt  
+from screen.imagePlane import screen   
  
 
 ########## Screen Definition ##########
+# Screen size (in ligth-years?)
+Ssize = 3
 
-# Number of X and Y pixels
-screenX = 2
-screenY = 2
+# Resolution of the screen: 
+# Number of pixels in each side of the screen (N X N)
+N = 6 
 
-if screenX & 1:
-    alphaMax = screenX - 1
-else:
-    alphaMax = screenX
-
-if screenY & 1:
-    betaMax = screenY - 1
-else:
-    betaMax = screenY 
-    
-alphaRange = np.arange(-alphaMax/2, alphaMax/2 +1)
-betaRange = np.arange(-betaMax/2, betaMax/2 +1)
-
-print ("Size of the screen in Pixels:", alphaMax+1, "X", betaMax+1)
-print ("Number of Pixels: ", (alphaMax+1)*(betaMax+1))
+# Ranges of the Alpha and Beta coordinates in the image plane given by the
+# screen.imagePlane module    
+alphaRange, betaRange, numPixels = screen(Ssize, N)
 
 # Distance to the Black hole 
-D = 100.
+D = 1000.
 
 # Inclination of the image plane
 i = np.pi/4
@@ -46,37 +37,35 @@ i = np.pi/4
 #######################################
 
 
-rDataArray = np.zeros(((alphaMax+1),(betaMax+1)))
+rDataArray = np.zeros((numPixels,numPixels))
+
+
+for j in range(0,numPixels):
+    for k in range(0,numPixels):        
+        # Define a photon       
+        p = Photon(Alpha = alphaRange[k], Beta = betaRange[numPixels-1-j], D = D, i = i)
+        
+        # Build the initial conditions needed to solve the geodesic equations
+        # [t, r, theta, phi, k_t, k_r, k_theta, k_phi] and stores in the variable
+        # p.iC of the Photon class
+        
+        p.initConds(initCond(p.xin, p.kin, m.g(p.xin)))
+               
+        finalPos, l = geoInt(m.geodesics, p.iC, intStep = 0.1)
+        
+        p.finalPosition(finalPos)
+
+        print(" Number of Steps to reach the Equatorial Plane:",l)
+        print()
+        print("Alpha=", k, " Beta=", numPixels-1-j)
+        print(p.iC[4], p.fP[4])
+        print(p.iC[7], p.fP[7])
+        # Store value of the radius of the photon in the equatorial plane
+        # in the rDataArray
+        
+        rDataArray[j, k] = p.fP[1]
+        
 
 print(rDataArray)
-
-# Define a photon       
-p = Photon(Alpha = 1., Beta = 0., D = D, i = i)    
-
-# Initial position and momentum of the photon
-# p.xin
-# p.kin
-
-
-# Build the initial conditions needed to solve the geodesic equations
-# [t, r, theta, phi, k_t, k_r, k_theta, k_phi] and stores in the variable
-# p.iC of the Photon class
-
-p.initConds(initCond(p.xin, p.kin, m.g(p.xin)))
-
-
-finalPos, j = geoInt(m.geodesics, p.iC)
-
-p.finalPosition(finalPos)
-
-
-print(" Number of Steps to reach the Equatorial Plane:",j)
-print()
-print("t  ", p.iC[0], "  ", p.fP[0])
-print("r  ", p.iC[1], "  ", p.fP[1])
-print("th ", p.iC[2], "  ", p.fP[2])
-print("ph ", p.iC[3], "  ", p.fP[3])
-print("E ", p.iC[4], "  ", p.fP[4])
-print("L ", p.iC[7], "  ", p.fP[7])
 
 

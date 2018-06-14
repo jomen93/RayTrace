@@ -23,8 +23,8 @@ from metrics import minkowski as m
 
 ################### INPUT ######################
 # Initial coordinates of the photon in the observer's plane
-Alpha = 5.
-Beta = 0.
+Alpha = 10.
+Beta = 5.
 
 #Frequency of the observed photon
 freq = 1.

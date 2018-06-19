@@ -1,0 +1,74 @@
+
+\chapter{The Schwarzschild Spacetime}.
+
+The Schwarzschild spacetime is given by the line element
+\begin{equation}
+	ds^2 = -\left( 1 - \frac{2M}{r}\right) dt^2 + \left( 1 - \frac{2M}{r}\right)^{-1} dr^2 + r^2 d\theta^2 + r^2 \sin^2 \theta d\phi^2.
+\end{equation}
+
+When compared with the standard form of the Kerr's line element in Boyer-Lindquist coordinates,
+\begin{align}
+	ds^2 = &-\left( 1- \frac{2Mr}{\Sigma} \right) dt^2 -\frac{4Mar\sin^2 \theta}{\Sigma} dt d\phi \nonumber  \\
+	&+ \frac{\Sigma}{\Delta} dr^2 +\Sigma d\theta^2 + \sin^2 \theta \left( r^2 + a^2 +\frac{2Ma^2 r \sin^2 \theta}{\Sigma} \right) d\phi^2,
+\end{align}
+Schwarzschild's metric is obtained by taking $a=0$ and
+\begin{align}
+	\Sigma &= r^2 \\
+	\Delta &= r^2 -2Mr.
+\end{align}
+
+Therefore, the potentials in the description of a particle moving in this spacetime reduce to
+\begin{align}
+	R &= E^2 r^4 - (r^2 -2Mr) \left[ r^2 + L^2 + Q \right] \\
+	\Theta &= Q -  \frac{\cos^2 \theta}{\sin^2 \theta}L^2
+\end{align}
+
+Then, we have the function
+\begin{align}
+	\Xi &= E^2 r^4 - (r^2 -2Mr) \left[ r^2 + L^2 + Q \right] + (r^2 -2Mr) \left[ Q -  \frac{\cos^2 \theta}{\sin^2 \theta}L^2 \right] \nonumber \\
+	\Xi &= E^2 r^4 - (r^2 -2Mr) ( r^2 + L^2 ) - (r^2 -2Mr) \frac{\cos^2 \theta}{\sin^2 \theta}L^2 \nonumber \\
+	\Xi &= E^2 r^4 - r^4 - L^2 r^2 + 2Mr^3 + 2ML^2r - r^2 \frac{\cos^2 \theta}{\sin^2 \theta}L^2 
+	  + 2Mr \frac{\cos^2 \theta}{\sin^2 \theta}L^2 
+\end{align}
+
+In order to write the equations of motion we need the derivatives
+\begin{align}
+\frac{\partial \Xi}{\partial E} &= 2E r^4 \\
+\frac{\partial \Xi}{\partial L} &= - 2(r^2 -2Mr)L - 2(r^2 -2Mr) \frac{\cos^2 \theta}{\sin^2 \theta}L \nonumber \\
+						&= - 2(r^2 -2Mr)L \left[1 +  \frac{\cos^2 \theta}{\sin^2 \theta} \right] \nonumber \\
+						&= - 2(r^2 -2Mr)L \csc^2 \theta  \\
+\end{align}
+and also
+\begin{align}
+\frac{\partial}{\partial r}\left( \frac{\Delta}{2\Sigma}\right) &= \frac{\partial}{\partial r}\left( \frac{1}{2} - \frac{M}{r} \right) = \frac{M}{r^2} \\
+\frac{\partial}{\partial r}\left( \frac{1}{2\Sigma}\right) &= \frac{\partial}{\partial r}\left( \frac{1}{2r^2}\right) = -\frac{1}{r^3}\\
+\frac{\partial}{\partial r}\left( \frac{\Xi}{2\Delta \Sigma}\right) &= \frac{\partial}{\partial r}\left( \frac{E^2 r^4 - (r^2 -2Mr) ( r^2 + L^2 ) - (r^2 -2Mr) \frac{\cos^2 \theta}{\sin^2 \theta}L^2}{2r^2(r^2 -2Mr)}\right) \nonumber \\
+&= \frac{1}{2} \frac{\partial}{\partial r}\left( E^2\left(1-\frac{2M}{r}\right)^{-1} - 1 - \frac{L^2}{r^2} - \frac{\cos^2 \theta}{\sin^2 \theta} \frac{L^2}{r^2} \right) \nonumber \\
+&= -\frac{E^2}{\left(1-\frac{2M}{r}\right)^2}\frac{M}{r^2}  + \frac{L^2}{r^3} + \frac{\cos^2 \theta}{\sin^2 \theta} \frac{L^2}{r^3} \nonumber \\
+&= -\frac{E^2 M}{(r-2M)^2}  + \frac{L^2}{r^3} \csc^2 \theta
+\end{align}
+
+\begin{align}
+\frac{\partial}{\partial \theta}\left( \frac{\Delta}{2\Sigma}\right) &= \frac{\partial}{\partial r}\left( \frac{1}{2} - \frac{M}{r} \right) = 0 \\
+\frac{\partial}{\partial \theta}\left( \frac{1}{2\Sigma}\right) &= \frac{\partial}{\partial r}\left( \frac{1}{2r^2}\right) = 0\\
+\frac{\partial}{\partial \theta}\left( \frac{\Xi}{2\Delta \Sigma}\right) &= \frac{\partial}{\partial \theta}\left( \frac{E^2 r^4 - (r^2 -2Mr) ( r^2 + L^2 ) - (r^2 -2Mr) \frac{\cos^2 \theta}{\sin^2 \theta}L^2}{2r^2(r^2 -2Mr)}\right) \nonumber \\
+&= \frac{1}{2} \frac{\partial}{\partial \theta}\left( -  \frac{\cos^2 \theta}{\sin^2 \theta} \frac{L^2}{r^2}\right) \nonumber \\
+&= \cot \theta \csc^2 \theta \frac{L^2}{r^2} 
+\end{align}
+
+Using this expressions, the equations of motion of a particle in this spacetime are given by the Hamilton's equations
+
+\begin{align*}
+	\dot{t} &= \frac{1}{2r^2(r^2 -2Mr)} 2E r^4 = \frac{E r^2}{(r^2 -2Mr)}  \\
+	\dot{r} &= p_r \left(1 - \frac{2M}{r} \right)  \\
+	\dot{\theta} &= \frac{p_\theta}{r^2}\\
+	\dot{\phi} &= - \frac{1}{2r^2(r^2 -2Mr)} \left[ - 2(r^2 -2Mr)L \csc^2 \theta \right] = \frac{L}{r^2 \sin^2 \theta}\\	
+\end{align*}
+
+\begin{align*}
+\dot{p}_t &= 0\\
+\dot{p}_r &= - \frac{M}{r^2}p_r^2 +  \frac{p_\theta^2}{r^3} -\frac{E^2 M}{(r-2M)^2}  + \frac{L^2}{r^3 \sin^2 \theta} \\
+\dot{p}_\theta &= \frac{\cos \theta}{\sin^3 \theta} \frac{L^2}{r^2}\\
+\dot{p}_\phi &= 0\\	
+\end{align*}
+

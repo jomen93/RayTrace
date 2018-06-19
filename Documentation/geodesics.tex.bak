@@ -1,6 +1,34 @@
 
 \chapter{Geodesic Equations}.\\
-COnsider a general line element in Boyer-Lindquist coordinates,
+Consider a general line element of  a general stationary and axially symmetric spacetime described by the line element
+\begin{equation}
+ds^2 = g_{tt} dt^2 + 2g_{t \phi} dt d\phi + g_{rr} dr^2 + g_{\theta \theta} d\theta^2 + g_{\phi \phi} d\phi^2.
+\end{equation}
+
+The Lagrangian describing the geodesic motion of a test-particle in this spacetime is
+\begin{equation}
+\mathcal{L} = \frac{1}{2} g_{\mu \nu} \dot{x}^\mu \dot{x}^\nu, 
+\end{equation}
+where $\dot{x}^\mu = \frac{dx^\mu}{d\lambda}$ and $\lambda$ is an affine parameter of the geodesic. 
+The momentum
+From the stationary and axially symmetric conditions of spacetime, we conclude that the metric components are independent of the coordinates $t$ and $\phi$. Therefore, there are two constants of motion: the specific energy at infinity, $E$, and the axial component of the specific angular momentum at infinity, $L_z$. These are defined as
+\begin{align}
+-E &= p_t = \frac{\partial \mathcal{L}}{\partial \dot{t}} = g_{tt} \dot{t} + g_{t \phi} \dot{\phi} \\
+L_z &= p_\phi = \frac{\partial \mathcal{L}}{\partial \dot{\phi}} = g_{t\phi} \dot{t} + g_{\phi \phi} \dot{\phi}.
+\end{align}
+
+
+
+
+
+
+
+
+
+
+
+
+in Boyer-Lindquist coordinates,
 \begin{align*}
 	ds^2 = &-\left( 1- \frac{2Mr}{\Sigma} \right) dt^2 - -\frac{4Mar\sin^2 \theta}{\Sigma} dt d\phi\\
 	&+ \frac{\Sigma}{\Delta} dr^2 +\Sigma d\theta^2 + \sin^2 \theta \left( r^2 + a^2 +\frac{2Ma^2 r \sin^2 \theta}{\Sigma} \right) d\phi^2,

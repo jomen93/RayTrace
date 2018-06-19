@@ -8,44 +8,42 @@ Main Module
 
 @author: ashcat
 """
-from sys import exit
 import numpy as np
-import myconfig as cfg
-from initialConditions import initCond   
+from photon import Photon
+from initialConditions import initCond 
+from metrics import minkowski as m  
 from geodesicIntegration import geoInt  
+from screen.imagePlane import screen   
+ 
 
+########## Screen Definition ##########
+# Screen size (in ligth-years?)
+Ssize = 3
 
-  
-# Load the Screen  
-if cfg.ScreenType == 1:
-    from screen.imagePlane import screen
-    from photon import Photon
-else:
-    print("DEFINE A VALID SCREEN TYPE")
-    exit(0)
-
-# Load the Metric    
-if cfg.Metric == 1:
-    from metrics import minkowski as m
-else:
-    print("DEFINE A VALID METRIC")
-    exit(0)
-
+# Resolution of the screen: 
+# Number of pixels in each side of the screen (N X N)
+N = 6 
 
 # Ranges of the Alpha and Beta coordinates in the image plane given by the
 # screen.imagePlane module    
-alphaRange, betaRange, numPixels = screen(cfg.Ssize, cfg.N)
+alphaRange, betaRange, numPixels = screen(Ssize, N)
+
+# Distance to the Black hole 
+D = 1000.
+
+# Inclination of the image plane
+i = np.pi/4
+
+#######################################
+
 
 rDataArray = np.zeros((numPixels,numPixels))
 
 
-    
-perc = 0
 for j in range(0,numPixels):
-    for k in range(0,numPixels): 
+    for k in range(0,numPixels):        
         # Define a photon       
-        p = Photon(Alpha = alphaRange[k], Beta = betaRange[numPixels-1-j],
-                   D = cfg.D, i = cfg.i)
+        p = Photon(Alpha = alphaRange[k], Beta = betaRange[numPixels-1-j], D = D, i = i)
         
         # Build the initial conditions needed to solve the geodesic equations
         # [t, r, theta, phi, k_t, k_r, k_theta, k_phi] and stores in the variable
@@ -57,17 +55,16 @@ for j in range(0,numPixels):
         
         p.finalPosition(finalPos)
 
-        #print(" Number of Steps to reach the Equatorial Plane:",l)
-        #print()
-        #print("Alpha=", k, " Beta=", numPixels-1-j)
-        
+        print(" Number of Steps to reach the Equatorial Plane:",l)
+        print()
+        print("Alpha=", k, " Beta=", numPixels-1-j)
+        print(p.iC[4], p.fP[4])
+        print(p.iC[7], p.fP[7])
         # Store value of the radius of the photon in the equatorial plane
         # in the rDataArray
+        
         rDataArray[j, k] = p.fP[1]
         
-        # Print progress
-        perc = perc +1
-        print (np.int(perc/(numPixels*numPixels)*100),"% complete ", end="\r")
 
 print(rDataArray)
 

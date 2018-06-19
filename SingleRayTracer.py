@@ -18,26 +18,26 @@ from scipy.integrate import odeint
 import matplotlib.pyplot as plt
 from photon import Photon
 from initialConditions import initCond 
-from metrics import minkowski as m       
+import metrics.schwarzschild as m       
 
 
 ################### INPUT ######################
 # Initial coordinates of the photon in the observer's plane
-Alpha = 10.
-Beta = 5.
+Alpha = 0.
+Beta =  0.
 
 #Frequency of the observed photon
 freq = 1.
 
 # Location of the image plane
-D = 100.
+D = 50.
 i = np.pi/4
 
 # Final value of the affine parameter in the geodesic
-tauf = -150.
+tauf = -500.
 
 # Number of steps in the integration
-dtau = 150
+dtau = 5000
 
 
 ################### NUMERICAL SOLUTION ######################
@@ -51,7 +51,6 @@ p = Photon(Alpha, Beta, freq, D, i)
 # Build the initial conditions needed to solve the geodesic equations
 # [t, r, theta, phi, k_t, k_r, k_theta, k_phi] and stores in the variable
 # p.iC of the Photon class
-
 p.initConds(initCond(p.xin, p.kin, m.g(p.xin)))
  
 # Solve the geodesic Equations
@@ -74,9 +73,9 @@ ax = fig.add_subplot(111, projection='3d')
 ax.plot(x, y, z)
 
 ax.set_title("Photon motion", loc='center')
-ax.set_xlim(-00, 90)
-ax.set_zlim(-00, 90)
-ax.set_ylim(-00, 90)
+#ax.set_xlim(-00, 90)
+#ax.set_zlim(-00, 90)
+#ax.set_ylim(-00, 90)
 ax.set_xlabel("x")
 ax.set_ylabel("y")
 ax.set_zlabel("z")

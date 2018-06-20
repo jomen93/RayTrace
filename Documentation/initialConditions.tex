@@ -4,7 +4,7 @@
 In order to calculate the image of a black hole we will trace back the path of photons from a point in the observer's image plane, located at a distant point, onto the emission structure around the black hole. The image plane is considered as a grid and the received photons will have a momentum vector orthogonal to this plane.\\
 
 \section{Coordinate Systems}
-We will take Cartesian coordinates $(X,Y,Z)$ at the image plane of the observer and Cartesian coordinates $(x,y,z)$ centered at the black hole. These two systems are related  by a rotation and a translation. As seen in Figure XXX we may define a rotation between the system $(X,Y,Z)$ and an intermediate system $(X',Y',Z')$ as
+We will take Cartesian coordinates $(X,Y,Z)$ at the image plane of the observer and Cartesian coordinates $(x,y,z)$ centered at the black hole. These two systems are related  by a rotation and a translation. As seen in Figure \ref{fig: CoordinateTransformation } we may define a rotation between the system $(X,Y,Z)$ and an intermediate system $(X',Y',Z')$ as
 \begin{equation}
 \begin{pmatrix}
 X' \\
@@ -23,7 +23,15 @@ Z
 \end{pmatrix}
 \end{equation}
 
-If the observer is located at a distance $D$ from the black hole as in Figure XXX, we introduce the spatial translation from the intermediate system $(X',Y',Z')$ to the system $(x,y,z)$,
+\begin{figure}[h!]
+\begin{center}
+\includegraphics[scale=0.7]{figure01.pdf} 
+\caption{Coordinate Transformation for the initial conditions of the photon}
+\label{fig: CoordinateTransformation }
+\end{center}
+\end{figure}
+
+If the observer is located at a distance $D$ from the black hole as in Figure \ref{fig: CoordinateTransformation }, we introduce the spatial translation from the intermediate system $(X',Y',Z')$ to the system $(x,y,z)$,
 
 \begin{equation}
 \begin{pmatrix}
@@ -128,7 +136,7 @@ r_0 &= \sqrt{D^2 + \alpha^2 + \beta^2} \\
 
 \section{Momentum of a Photon}
 
-Photons received by the distant observer will be considered to arrive perpendicular to the image plane. According to the orientation of the coordinates $(X,Y,Z)$ in Figure XXX, the Cartesian components of the incident photon are given by the 4-momentum vector
+Photons received by the distant observer will be considered to arrive perpendicular to the image plane. According to the orientation of the coordinates $(X,Y,Z)$ in Figure \ref{fig: CoordinateTransformation }, the Cartesian components of the incident photon are given by the 4-momentum vector
 \begin{equation}
 \tilde{k}^\nu_0 =\left( \tilde{k}^t_0, \tilde{k}^X_0, \tilde{k}^Y_0, \tilde{k}^Z_0 \right) = \left( K_0, K_0, 0, 0 \right).
 \end{equation}
@@ -137,6 +145,9 @@ The components of the 4-momentum in the spherical coordinate system $(r,\theta,\
 \begin{equation}
 k^\mu = \frac{\partial x^\mu}{\partial \tilde{x}^\nu} \tilde{k}^\nu.
 \end{equation}
+
+
+
 
 The relevant terms in the transformation matrix are obtained from equation (\ref{CoordinateTransformation}) as
 

@@ -13,7 +13,7 @@ import numpy as np
 import myconfig as cfg
 from initialConditions import initCond   
 from geodesicIntegration import geoInt  
-
+from accretionStructures import simpleAccDisk as st
 
   
 # Load the Screen  
@@ -27,6 +27,8 @@ else:
 # Load the Metric    
 if cfg.Metric == 1:
     from metrics import minkowski as m
+elif cfg.Metric == 2:
+    from metrics import schwarzschild as m
 else:
     print("DEFINE A VALID METRIC")
     exit(0)
@@ -69,6 +71,14 @@ for j in range(0,numPixels):
         perc = perc +1
         print (np.int(perc/(numPixels*numPixels)*100),"% complete ", end="\r")
 
+print()
 print(rDataArray)
+print()
+print()
+
+disk = st.SimpleDisk(rDataArray)
+diskImage = disk.Ch()
+
+print(diskImage)
 
 

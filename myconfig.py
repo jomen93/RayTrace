@@ -22,11 +22,11 @@ ScreenType = 1
 ############## Image Plane Options ##############
 
 # Screen size (in ligth-years?)
-Ssize = 3
+Ssize = 6
 
 # Resolution of the square screen: 
 # Number of pixels in each side of the screen (N X N)
-N = 6 
+N = 10 
 
 # Distance to the Black hole 
 D = 1000.
@@ -42,7 +42,7 @@ i = np.pi/4
 Metric = 1
 
 # 1: Minkowski metric 
-# 2: Schwarzschild metric (not yet!)
+# 2: Schwarzschild metric 
 # 3: Kerr metric (not yet!)
 
 ########### Minkowski metric Options ############
@@ -52,8 +52,18 @@ Metric = 1
 ######### Schwarzschild metric Options ##########
 
 # Mass of the black hole
-# M = 1
+M = 1
 
 #################################################
 
 
+
+############# Kerr metric Options ###############
+
+# Mass of the black hole
+# M = 1
+
+# Angular Momentum Parameter
+# a = 0.1 
+
+#################################################

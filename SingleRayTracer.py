@@ -13,18 +13,21 @@ i: inclination angle of the image plane
 
 @author: ashcat
 """
+from mpl_toolkits.mplot3d import Axes3D
 import numpy as np
 from scipy.integrate import odeint
 import matplotlib.pyplot as plt
 from photon import Photon
 from initialConditions import initCond 
+
+#import metrics.minkowski as m       
 import metrics.schwarzschild as m       
 
 
 ################### INPUT ######################
 # Initial coordinates of the photon in the observer's plane
 Alpha = 0.
-Beta =  0.
+Beta =  5.
 
 #Frequency of the observed photon
 freq = 1.
@@ -71,6 +74,7 @@ y = coords[:,1]*np.sin(coords[:,2])*np.sin(coords[:,3])
 fig = plt.figure()
 ax = fig.add_subplot(111, projection='3d')
 ax.plot(x, y, z)
+#ax.scatter(x, y, z)
 
 ax.set_title("Photon motion", loc='center')
 #ax.set_xlim(-00, 90)

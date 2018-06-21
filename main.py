@@ -13,6 +13,7 @@ import numpy as np
 import myconfig as cfg
 from initialConditions import initCond   
 from geodesicIntegration import geoInt  
+from writeFits import FITS
 from accretionStructures import simpleAccDisk as st
 
   
@@ -38,6 +39,8 @@ else:
 # screen.imagePlane module    
 alphaRange, betaRange, numPixels = screen(cfg.Ssize, cfg.N)
 
+# This array stores the data of the radius at the equatorial plane
+# for the received photons
 rDataArray = np.zeros((numPixels,numPixels))
 
 
@@ -55,7 +58,7 @@ for j in range(0,numPixels):
         
         p.initConds(initCond(p.xin, p.kin, m.g(p.xin)))
                
-        finalPos, l = geoInt(m.geodesics, p.iC, intStep = 0.1)
+        finalPos, l = geoInt(m.geodesics, p.iC, intStep = 0.5)
         
         p.finalPosition(finalPos)
 
@@ -71,14 +74,16 @@ for j in range(0,numPixels):
         perc = perc +1
         print (np.int(perc/(numPixels*numPixels)*100),"% complete ", end="\r")
 
-print()
-print(rDataArray)
-print()
-print()
 
+# Constructs the image using the SimpleDisk structure 
 disk = st.SimpleDisk(rDataArray)
-diskImage = disk.Ch()
+diskImage = disk.image
 
 print(diskImage)
 
+# Stores the image in a name.fits file
+name = "exampleHD.fits"
+imageData = FITS(diskImage, name)
+imageData.Write()
+imageData.showImage()
 

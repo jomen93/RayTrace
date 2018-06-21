@@ -14,8 +14,5 @@ class SimpleDisk:
         self.Shape = np.shape(self.rData)
         self.R_out = R_out*np.ones(self.Shape)
         self.R_in = R_in*np.ones(self.Shape)
-        
-    
-    def Ch(self):
-        return 1*(self.R_in <= self.rData) * (self.rData <= self.R_out)
+        self.image = 1*(self.R_in <= self.rData) * (self.rData <= self.R_out)
 

@@ -22,11 +22,11 @@ ScreenType = 1
 ############## Image Plane Options ##############
 
 # Screen size (in ligth-years?)
-Ssize = 6
+Ssize = 5
 
 # Resolution of the square screen: 
 # Number of pixels in each side of the screen (N X N)
-N = 10 
+N = 64 
 
 # Distance to the Black hole 
 D = 1000.

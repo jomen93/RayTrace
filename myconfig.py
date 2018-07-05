@@ -11,59 +11,71 @@ Configuration File
 
 import numpy as np
 
-############### Screen Definition ###############
+''' Screen Definition '''
 
 ScreenType = 1
 
 # 1: Image Plane
 # 2: Point camera (not yet!)
 
-
 ############## Image Plane Options ##############
 
 # Screen size (in ligth-years?)
-Ssize = 5
+Ssize = 10
 
 # Resolution of the square screen: 
 # Number of pixels in each side of the screen (N X N)
-N = 64 
+N = 64
 
 # Distance to the Black hole 
 D = 1000.
 
 # Inclination of the image plane
-i = np.pi/4
+i = np.pi/3
 
 #################################################
 
 
-############### Metric Definition ###############
+''' Metric Definition '''
 
-Metric = 1
+Metric = 2
 
 # 1: Minkowski metric 
 # 2: Schwarzschild metric 
 # 3: Kerr metric (not yet!)
 
-########### Minkowski metric Options ############
+# Parameters in the metric
 
+M = 1.
+a = 0.
+
+########### Minkowski metric Options ############
 
 
 ######### Schwarzschild metric Options ##########
 
-# Mass of the black hole
-M = 1
-
-#################################################
-
-
+# M: Mass of the black hole
 
 ############# Kerr metric Options ###############
 
-# Mass of the black hole
-# M = 1
+# M : Mass of the black hole
 
-# Angular Momentum Parameter
-# a = 0.1 
+# a: Angular Momentum Parameter
 
 #################################################
+
+
+''' Accretion Structue Definition '''
+
+Structure = 2
+
+# Parameters in the Structure
+
+R_in = 3.*M
+R_out = 6.
+
+#################################################
+
+# 1: Simple Accretion Disk
+# 2: Linear Spectrum Accretion Disk
+# 2: Novikov-Thorne Thin Accretion Disk (not yet!)

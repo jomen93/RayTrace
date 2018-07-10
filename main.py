@@ -20,6 +20,9 @@ from common.writeFits import FITS
 if cfg.ScreenType == 1:
     from screen.imagePlane import screen
     from screen.imagePlane import Photon
+    hdrData = {'SCREEN':'Image Plane'}
+    hdrData['DISTANCE'] = str(cfg.D)
+    hdrData['INCLINAT'] = str(cfg.i)
 else:
     print("DEFINE A VALID SCREEN TYPE")
     exit(0)
@@ -27,8 +30,11 @@ else:
 # Load the Metric    
 if cfg.Metric == 1:
     from metrics import minkowski as m
+    hdrData['METRIC'] = 'Minkowksi'
 elif cfg.Metric == 2:
     from metrics import schwarzschild as m
+    hdrData['METRIC'] = 'Schwarzschild'
+    hdrData['MASS'] = str(cfg.M)
 else:
     print("DEFINE A VALID METRIC")
     exit(0)
@@ -36,8 +42,13 @@ else:
 # Load the Accretion Structure    
 if cfg.Structure == 1:
     from accretionStructures import simpleAccDisk as st
+    hdrData['ACSTRCTR'] = 'Simplest Accretion Disk'
 elif cfg.Structure == 2:
     from accretionStructures import linearAccDisk as st
+    hdrData['ACSTRCTR'] = 'Linear Spectrum Accretion Disk'
+elif cfg.Structure == 3:
+    from accretionStructures import inftyAccDisk as st
+    hdrData['ACSTRCTR'] = 'Infinite Accretion Disk with a decreasing exponential spectrum'
 else:
     print("DEFINE A VALID ACCRETION STRUCTURE")
     exit(0)
@@ -87,7 +98,7 @@ diskImage = disk.image
 
 # Stores the image in a name.fits file
 name = str(cfg.N) + "x" + str(cfg.N) + ".fits"
-imageData = FITS(diskImage, name)
+imageData = FITS(diskImage, name, hdrData)
 imageData.Write()
 imageData.showImage()
 

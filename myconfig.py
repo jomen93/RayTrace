@@ -21,17 +21,17 @@ ScreenType = 1
 ############## Image Plane Options ##############
 
 # Screen size (in ligth-years?)
-Ssize = 10
+Ssize = 10 
 
 # Resolution of the square screen: 
 # Number of pixels in each side of the screen (N X N)
-N = 64
+N = 32
 
 # Distance to the Black hole 
 D = 1000.
 
 # Inclination of the image plane
-i = np.pi/3
+i = np.pi/2.5
 
 #################################################
 
@@ -67,15 +67,16 @@ a = 0.
 
 ''' Accretion Structue Definition '''
 
-Structure = 2
+Structure = 3
 
 # Parameters in the Structure
 
-R_in = 3.*M
-R_out = 6.
+R_in = 6.*M
+R_out = 12.*M
 
 #################################################
 
 # 1: Simple Accretion Disk
 # 2: Linear Spectrum Accretion Disk
-# 2: Novikov-Thorne Thin Accretion Disk (not yet!)
+# 3: Infinite Accretion Disk with a decreasing exponential spectrum
+# 4: Novikov-Thorne Thin Accretion Disk (not yet!)

@@ -50,7 +50,7 @@ def geoInt(geoEq, initConds, rEH = 0. ,intStep = 0.1):
         coordloop = odeint(geodesics,coords[j],[0,-intStep])
 
         # Event Horizon Condition
-        if coordloop[1,1] <= rEH + 0.00001 :
+        if coordloop[1,1] <= rEH + 0.0000001 :
             return [0,0,0,0,0,0,0,0], j
         '''
         # Carter's Constant conservation condition

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2018) (preloaded format=pdflatex 2018.4.16)  20 JUN 2018 15:35
+This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2018) (preloaded format=pdflatex 2018.4.16)  15 JUL 2018 11:29
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -638,11 +638,6 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 ]
 Chapter 1.
 
-Underfull \hbox (badness 10000) in paragraph at lines 2--3
-
- []
-
-
 Underfull \hbox (badness 10000) in paragraph at lines 4--5
 
  []
@@ -655,37 +650,38 @@ Package pdftex.def Info: figure01.pdf  used on input line 28.
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-[3] [4 <./figure01.pdf>]
-Overfull \hbox (20.52315pt too wide) detected at line 162
+[3] [4 <./figure01.pdf>] [5]
+Overfull \hbox (20.52315pt too wide) detected at line 169
 [][] \OT1/cmr/m/n/8 = [][]
  []
 
-[5]
-Underfull \vbox (badness 10000) has occurred while \output is active []
+[6] [7]
+Overfull \hbox (16.54243pt too wide) detected at line 279
+[]
+ []
 
- [6])
-(./geodesics.tex [7] [8
+[8]) (./geodesics.tex [9] [10
 
 ]
 Chapter 2.
-[9]) (./Minkowski.tex [10]
+[11]) (./Minkowski.tex [12]
 Chapter 3.
-[11
+[13
 
-] [12]) (./Schwarzschild.tex [13] [14
+] [14]) (./Schwarzschild.tex [15] [16
 
 ]
 Chapter 4.
-[15]
+[17]
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [16])
-[17] (./Master.aux) ) 
+ [18])
+[19] (./Master.aux) ) 
 Here is how much of TeX's memory you used:
- 13115 strings out of 492649
- 271844 string characters out of 6129622
- 302654 words of memory out of 5000000
- 16906 multiletter control sequences out of 15000+600000
+ 13118 strings out of 492649
+ 271908 string characters out of 6129622
+ 302687 words of memory out of 5000000
+ 16909 multiletter control sequences out of 15000+600000
  541914 words of font info for 68 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  41i,11n,36p,10384b,531s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -708,10 +704,10 @@ usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr
 local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/l
 ocal/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/loc
 al/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb>
-Output written on Master.pdf (17 pages, 226042 bytes).
+Output written on Master.pdf (19 pages, 236202 bytes).
 PDF statistics:
- 139 PDF objects out of 1000 (max. 8388607)
- 99 compressed objects within 1 object stream
+ 147 PDF objects out of 1000 (max. 8388607)
+ 104 compressed objects within 2 object streams
  0 named destinations out of 1000 (max. 500000)
  6 words of extra memory for PDF output out of 10000 (max. 10000000)
 

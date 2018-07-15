@@ -1,5 +1,5 @@
 
-\chapter{Initial Conditions}.\\
+\chapter{Initial Conditions}
 
 In order to calculate the image of a black hole we will trace back the path of photons from a point in the observer's image plane, located at a distant point, onto the emission structure around the black hole. The image plane is considered as a grid and the received photons will have a momentum vector orthogonal to this plane.\\
 
@@ -121,6 +121,21 @@ r &= \sqrt{(X+D)^2 + Y^2 + Z^2} \\
 \end{cases} \label{CoordinateTransformation}
 \end{equation}
 
+\section{Momentum of a Photon}
+
+The Cartesian components of the incident photon are given by the 4-momentum vector
+\begin{equation}
+\tilde{k}^\nu_0 =\left( \tilde{k}^t_0, \tilde{k}^X_0, \tilde{k}^Y_0, \tilde{k}^Z_0 \right)
+\end{equation}
+
+The components of the 4-momentum in the spherical coordinate system $(r,\theta,\phi)$ are obtained using the transformation law
+\begin{equation}
+k^\mu = \frac{\partial x^\mu}{\partial \tilde{x}^\nu} \tilde{k}^\nu.
+\label{kTransformation}
+\end{equation}
+
+\section{Image Plane Screen}
+
 \subsection{Initial Position of a photon}
 
 Consider a photon registered at the observer's image plane at the coordinates $(X,Y,Z) = (0, \alpha, \beta)$ at the time $t_0 = 0$. The spherical coordinates of this photon as seen from the black hole are given by the equation (\ref{CoordinateTransformation}) as
@@ -134,22 +149,14 @@ r_0 &= \sqrt{D^2 + \alpha^2 + \beta^2} \\
 \end{cases} 
 \end{equation}
 
-\section{Momentum of a Photon}
+\subsection{Momentum of a Photon}
 
-Photons received by the distant observer will be considered to arrive perpendicular to the image plane. According to the orientation of the coordinates $(X,Y,Z)$ in Figure \ref{fig: CoordinateTransformation }, the Cartesian components of the incident photon are given by the 4-momentum vector
+Photons received by the distant observer will be considered to arrive perpendicular to the image plane. According to the orientation of the coordinates $(X,Y,Z)$ in Figure \ref{fig: CoordinateTransformation }, the Cartesian components of the incident photon are given by
 \begin{equation}
 \tilde{k}^\nu_0 =\left( \tilde{k}^t_0, \tilde{k}^X_0, \tilde{k}^Y_0, \tilde{k}^Z_0 \right) = \left( K_0, K_0, 0, 0 \right).
 \end{equation}
 
-The components of the 4-momentum in the spherical coordinate system $(r,\theta,\phi)$ are obtained using the transformation law
-\begin{equation}
-k^\mu = \frac{\partial x^\mu}{\partial \tilde{x}^\nu} \tilde{k}^\nu.
-\end{equation}
-
-
-
-
-The relevant terms in the transformation matrix are obtained from equation (\ref{CoordinateTransformation}) as
+The components of the 4-momentum in the spherical coordinate system  are obtained using  Eq. (\ref{kTransformation}). Given the perpendicular components of the incident photon, the relevant terms in the transformation matrix are obtained from equation (\ref{CoordinateTransformation}) as
 
 \begin{equation}
 \left. \frac{\partial r}{\partial X} \right|_{(0,\alpha,\beta)}= \left.\frac{X+D}{\sqrt{(X+D)^2 + Y^2 + Z^2}}\right|_{(0,\alpha,\beta)}
@@ -162,11 +169,9 @@ The relevant terms in the transformation matrix are obtained from equation (\ref
 \end{equation}
 \normalsize
 
-\begin{align}
-\left. \frac{\partial \theta}{\partial X} \right|_{(0,\alpha,\beta)} &= -\frac{1}{\sqrt{r^2_0 -[D\cos i + \beta \sin i]^2}}  \left[ \cos i - \frac{D^2 \cos i + D\beta \sin i}{r^2_0}\right]\\
-\left. \frac{\partial \theta}{\partial X} \right|_{(0,\alpha,\beta)} &= -\frac{1}{\sqrt{\alpha^2 +[D\sin i - \beta \cos i]^2}}  \left[ \cos i - \frac{D^2 \cos i + D\beta \sin i}{r^2_0}\right]
-\end{align}
-
+\begin{equation}
+\left. \frac{\partial \theta}{\partial X} \right|_{(0,\alpha,\beta)} = -\frac{1}{\sqrt{r^2_0 -[D\cos i + \beta \sin i]^2}}  \left[ \cos i - \frac{D^2 \cos i + D\beta \sin i}{r^2_0}\right]\\
+\end{equation}
 
 \begin{align}
 \left. \frac{\partial \phi}{\partial X} \right|_{(0,\alpha,\beta)} &= \left.-\frac{Y \sin i}{[(X+D)\sin i - Z \cos i ]^2 + Y^2 } \right|_{(0,\alpha,\beta)} \nonumber \\
@@ -192,7 +197,8 @@ which gives
 k^t_0 = \sqrt{(k^r_0)^2 + r_0^2 (k^\theta _0)^2 + r_0^2 \sin^2 \theta_0 (k^\phi _0)^2}. \label{initialTempMomentum}
 \end{equation}
 
-\section{Complete set of Initial Conditions}
+
+\subsection{Complete set of Initial Conditions}
 
 The complete set of initial conditions are given by equations (\ref{CoordinateTransformation}), (\ref{initialSpatialMomentum}) and (\ref{initialTempMomentum}),
 
@@ -208,7 +214,7 @@ k^\phi _0 &= -\frac{\alpha \sin i}{\alpha^2 +[D \sin i - \beta \cos i]^2 } K_0
 \end{align}
 
 \subsection{Covariant Components of the 4-Momentum Vector}
-In order to solve the Hamiltonian equations of motion for the photons, we will need the initial components of the 4-momentum vector in their covariant form. Therefore we need to apply the spactime metric $g_{\mu \nu}$ as
+In order to solve the Hamiltonian equations of motion for the photons, we will need the initial components of the 4-momentum vector in their covariant form. Therefore we need to apply the spacetime metric $g_{\mu \nu}$ as
 \begin{equation}
 k_\mu = g_{\mu \nu} k^\nu.
 \end{equation}
@@ -227,7 +233,97 @@ k_\phi &=  g_{t \phi} k^t + g_{\phi \phi} k^\phi\\
 \end{cases}
 \end{equation}
 
+\section{Point Camera}
 
+Another type of screen considered in this study is a point camera. Photons arrive to this point receptor  from different directions. Therefore, in this case the initial position of all photon in the image is the same (point camera) while the components of the initial 4-momentum vector distinguishes each photon.
 
+\subsection{Initial Position of a photon}
 
+Since all the photons arrive to one point, the initial position condition for any of the photons is just $(X,Y,Z) = (0,0,0)$ at the time $t_0 = 0$. The corresponding spherical coordinates as seen from the black hole are given by the equations (\ref{CoordinateTransformation}),
+
+\begin{equation}
+\begin{cases}
+t_0 &= 0\\
+r_0 &= D\\
+\theta_0 &= i \\
+\phi_0 &= 0 \\
+\end{cases} 
+\end{equation}
+
+\subsection{Momentum of a Photon}
+
+Photons arrive to the point camera from different directions. Using the angular coordinates $\alpha$ and $\beta$ to describe the direction of each photon, the cartesian components of the 4-momentum vector can be written as
+\begin{equation}
+\tilde{k}^\nu_0 =\left( \tilde{k}^t_0, \tilde{k}^X_0, \tilde{k}^Y_0, \tilde{k}^Z_0 \right) = \left( K_0, K_0 \cos \beta \cos \alpha , K_0 \cos \beta \sin \alpha , K_0 \sin \beta \right).
+\end{equation}
+
+The components of the 4-momentum in the spherical coordinate system  are obtained using  Eq. (\ref{kTransformation}). The relevant terms in the transformation matrix are obtained from equation (\ref{CoordinateTransformation}) evaluating at the position of the point camera, giving
+
+\begin{equation}
+\left. \frac{\partial r}{\partial X} \right|_{(0,0,0)}= \left.\frac{X+D}{\sqrt{(X+D)^2 + Y^2 + Z^2}}\right|_{(0,0,0)}
+= \frac{D}{\sqrt{D^2}} = 1
+\end{equation}
+
+\begin{equation}
+\left. \frac{\partial r}{\partial Y} \right|_{(0,0,0)}= \left.\frac{Y}{\sqrt{(X+D)^2 + Y^2 + Z^2}}\right|_{(0,0,0)} = 0
+\end{equation}
+
+\begin{equation}
+\left. \frac{\partial r}{\partial Z} \right|_{(0,0,0)}= \left.\frac{Z}{\sqrt{(X+D)^2 + Y^2 + Z^2}}\right|_{(0,0,0)} = 0
+\end{equation}
+
+\footnotesize
+\begin{align}
+\left. \frac{\partial \theta}{\partial X} \right|_{(0,0,0)} &= \left.-\frac{1}{\sqrt{r^2-[(X+D)\cos i + Z \sin i]^2}}  \left[ \cos i - \frac{(X+D)^2 \cos i + Z(X+D) \sin i}{r^2}\right]\right|_{(0,0,0)} \nonumber \\
+\left. \frac{\partial \theta}{\partial X} \right|_{(0,0,0)} &= -\frac{1}{\sqrt{D^2 -[D\cos i ]^2}}  \left[ \cos i - \frac{D^2 \cos i }{D^2}\right]=0
+\end{align}
+\normalsize
+
+\footnotesize
+\begin{align}
+\left. \frac{\partial \theta}{\partial Y} \right|_{(0,0,0)} &= \left.-\frac{1}{\sqrt{r^2-[(X+D)\cos i + Z \sin i]^2}}  \left[ -Y \frac{(X+D) \cos i + Z \sin i}{r^2}\right]\right|_{(0,0,0)} \nonumber \\
+\left. \frac{\partial \theta}{\partial Y} \right|_{(0,0,0)} &=0
+\end{align}
+\normalsize
+
+\footnotesize
+\begin{align}
+\left. \frac{\partial \theta}{\partial Z} \right|_{(0,0,0)} &= \left.-\frac{1}{\sqrt{r^2-[(X+D)\cos i + Z \sin i]^2}}  \left[ \sin i -  Z \frac{(X+D) \cos i + Z \sin i}{r^2}\right]\right|_{(0,0,0)} \nonumber \\
+\left. \frac{\partial \theta}{\partial Z} \right|_{(0,0,0)} &= -\frac{\sin i}{\sqrt{D^2 -[D\cos i ]^2}} = - \frac{1}{D}
+\end{align}
+\normalsize
+
+\begin{align}
+\left. \frac{\partial \phi}{\partial X} \right|_{(0,0,0)} &= \left.-\frac{Y \sin i}{[(X+D)\sin i - Z \cos i ]^2 + Y^2 } \right|_{(0,0,0)} \nonumber \\
+\left. \frac{\partial \phi}{\partial X} \right|_{(0,0,0)} &= 0  
+\end{align}
+
+\begin{align}
+\left. \frac{\partial \phi}{\partial Y} \right|_{(0,0,0)} &= \left.\frac{[(X+D)\sin i - Z \cos i ]}{[(X+D)\sin i - Z \cos i ]^2 + Y^2 } \right|_{(0,0,0)} \nonumber \\
+\left. \frac{\partial \phi}{\partial Y} \right|_{(0,0,0)} &= \frac{D \sin i  }{[D \sin i ]^2 }  = \frac{1}{ D \sin i  }
+\end{align}
+
+\begin{align}
+\left. \frac{\partial \phi}{\partial Z} \right|_{(0,0,0)} &= \left.\frac{Y \cos i}{[(X+D)\sin i - Z \cos i ]^2 + Y^2 } \right|_{(0,0,0)} \nonumber \\
+\left. \frac{\partial \phi}{\partial Z} \right|_{(0,0,0)} &= 0  
+\end{align}
+
+Using this components of the transformation matrix, the spatial components of the initial 4-momentum in spherical coordinates are
+
+\begin{equation}
+\begin{cases}
+k^r_0 &= \tilde{k}^X_0 = K_0 \cos \beta \cos \alpha  \\
+k^\theta _0 &= \left. \frac{\partial \theta}{\partial Z} \right|_{(0,0,0)}  \tilde{k}^Z_0 = - \frac{K_0 \sin \beta}{D} \\
+k^\phi _0 &= \left. \frac{\partial \phi}{\partial Y} \right|_{(0,0,0)}  \tilde{k}^Y_0 = \frac{K_0 \cos \beta \sin \alpha}{ D \sin i  }
+\end{cases} \label{initialSpatialMomentum2}
+\end{equation}
+
+The temporal component of the initial 4-momentum of the photon is obtained from the condition 
+\begin{equation}
+k^\mu k_\mu =  \eta_{\mu \nu} k^\mu k^\nu = 0,
+\end{equation}
+which gives
+\begin{equation}
+k^t_0 = \sqrt{(k^r_0)^2 + r_0^2 (k^\theta _0)^2 + r_0^2 \sin^2 \theta_0 (k^\phi _0)^2}. \label{initialTempMomentum2}
+\end{equation}
 

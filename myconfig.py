@@ -13,7 +13,7 @@ import numpy as np
 
 ''' Screen Definition '''
 
-ScreenType = 1
+ScreenType = 2
 
 # 1: Image Plane
 # 2: Point camera (not yet!)
@@ -23,9 +23,17 @@ ScreenType = 1
 # Screen size (in ligth-years?)
 Ssize = 10 
 
+############## Point Camera Options ##############
+
+# Field of Vieew (in radians)
+FoV = np.pi/100.
+
+
+############## Other Screen Options ############## 
+
 # Resolution of the square screen: 
-# Number of pixels in each side of the screen (N X N)
-N = 32
+# Number of pixels in each direction of the screen (N X N)
+N = 64
 
 # Distance to the Black hole 
 D = 1000.

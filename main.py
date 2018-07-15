@@ -23,6 +23,14 @@ if cfg.ScreenType == 1:
     hdrData = {'SCREEN':'Image Plane'}
     hdrData['DISTANCE'] = str(cfg.D)
     hdrData['INCLINAT'] = str(cfg.i)
+    screenSize = cfg.Ssize
+elif cfg.ScreenType == 2:
+    from screen.pointCamera import screen
+    from screen.pointCamera import Photon
+    hdrData = {'SCREEN':'Point Camera'}
+    hdrData['DISTANCE'] = str(cfg.D)
+    hdrData['INCLINAT'] = str(cfg.i)
+    screenSize = cfg.FoV
 else:
     print("DEFINE A VALID SCREEN TYPE")
     exit(0)
@@ -56,7 +64,7 @@ else:
 
 # Ranges of the Alpha and Beta coordinates in the image plane given by the
 # screen.imagePlane module    
-alphaRange, betaRange, numPixels = screen(cfg.Ssize, cfg.N)
+alphaRange, betaRange, numPixels = screen(screenSize, cfg.N)
 
 # This array stores the data of the radius at the equatorial plane
 # for the received photons

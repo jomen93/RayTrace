@@ -19,3 +19,5 @@ class Disk:
         
         self.image = self.intens*(self.R_in <= self.rData)
 
+
+

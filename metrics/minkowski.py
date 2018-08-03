@@ -5,7 +5,10 @@ Created on Mon Apr 30 10:51:45 2018
 
 Minkowskian metric
 
-ds^2 = -dt^2 + dr^2 + r^2 d\theta^2 + r^2 \sin^2 (\theta) d\phi^2
+ds^2 = -dt^2 + dr^2 + r^2 dtheta^2 + r^2 sin^2 (theta) dphi^2
+
+- No event horizon
+- No ISCO
 
 @author: ashcat
 """
@@ -15,6 +18,11 @@ import myconfig as cfg
 
 
 def g(x):
+    '''
+    This procedure contains the Minkowski metric components 
+    in spherical coordinates
+    '''
+
     # Coordinates 
     t = x[0]
     r = x[1]
@@ -32,12 +40,19 @@ def g(x):
 
 def rEH():
     return 0.
+
+def ISCOco():
+    return 0.
+
+def ISCOcounter():
+    return 0.
     
 def geodesics(x, tau):
     '''
     This procedure contains the geodesic equations in Hamiltonian form 
     for the Minkowski metric
     '''
+
     # Coordinates and momentum components
     t = x[0]
     r = x[1]

@@ -3,9 +3,12 @@
 """
 Created on Mon Apr 30 10:51:45 2018
 
-Minkowskian metric
+Schwarzschild metric
 
-ds^2 = -dt^2 + dr^2 + r^2 d\theta^2 + r^2 \sin^2 (\theta) d\phi^2
+ds^2 = -(1-2M/r)dt^2 + dr^2 /(1-2M/r) + r^2 dtheta^2 + r^2 sin^2 (theta) dphi^2
+
+- Event horizon at r=2M
+- ISCO at r = 6M
 
 @author: ashcat
 """
@@ -15,6 +18,10 @@ import myconfig as cfg
 
 
 def g(x, M = cfg.M):
+    '''
+    This procedure contains the Schwarzschild metric components 
+    in spherical coordinates
+    '''
 
     # Coordinates 
     t = x[0]
@@ -34,6 +41,12 @@ def g(x, M = cfg.M):
 
 def rEH(M = cfg.M):
     return 2.*M
+
+def ISCOco(M = cfg.M):
+    return 6.*M
+
+def ISCOcounter(M = cfg.M):
+    return 6.*M
     
 def geodesics(x, tau, M=cfg.M):
     '''

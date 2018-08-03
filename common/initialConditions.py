@@ -7,15 +7,15 @@ Initial Conditions Module
 This module prepares the initial values of coordinates and momentum to
 solve the geodesic equations.
 
-Given    
+Input    
 x: initial coordinates calculated for a particular photon
 k: initial components of the momentum for a particular photon
 g: metric components at the photon location
 
-this module returns
+This module returns
 
 [t, r, theta, phi, k_t, k_r, k_theta, k_phi] :initial conditions needed to solve 
-the geodesic equations 
+the geodesic equations (covariant components of the momentum vector)
 
 @author: ashcat
 """

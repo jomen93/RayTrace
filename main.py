@@ -12,9 +12,9 @@ from sys import exit
 import numpy as np
 import myconfig as cfg
 from common.initialConditions import initCond   
-from common.geodesicIntegration import geoInt  
+from common.geodesicIntegration import geoInt 
+from photonSphere import ps 
 from common.writeFits import FITS
-
   
 # Load the Screen  
 if cfg.ScreenType == 1:
@@ -36,13 +36,18 @@ else:
     exit(0)
 
 # Load the Metric    
-if cfg.Metric == 1:
+if cfg.Metric == "Minkowski":
     from metrics import minkowski as m
     hdrData['METRIC'] = 'Minkowksi'
-elif cfg.Metric == 2:
+elif cfg.Metric == "Schwarzschild":
     from metrics import schwarzschild as m
     hdrData['METRIC'] = 'Schwarzschild'
     hdrData['MASS'] = str(cfg.M)
+elif cfg.Metric == "Kerr":
+    from metrics import kerr as m
+    hdrData['METRIC'] = 'Kerr'
+    hdrData['MASS'] = str(cfg.M)
+    hdrData['ANG_MOM'] = str(cfg.a)
 else:
     print("DEFINE A VALID METRIC")
     exit(0)
@@ -82,7 +87,6 @@ for j in range(0,numPixels):
         # Build the initial conditions needed to solve the geodesic equations
         # [t, r, theta, phi, k_t, k_r, k_theta, k_phi] and stores in the variable
         # p.iC of the Photon class
-        
         p.initConds(initCond(p.xin, p.kin, m.g(p.xin)))
         #rEH = m.rEH()
                
@@ -100,13 +104,26 @@ for j in range(0,numPixels):
         print (" ", np.int(perc/(numPixels*numPixels)*100),"% complete ", end="\r")
 
 
-# Constructs the image data using the SimpleDisk structure 
-disk = st.Disk(rDataArray, cfg.R_in, cfg.R_out)
+# Constructs the image data using the accretion structure 
+if cfg.corotation == True:
+    R_in = m.ISCOco()
+else:
+    R_in = m.ISCOcounter()
+
+disk = st.Disk(rDataArray, R_in, cfg.R_out)
 diskImage = disk.image
 
+photonsphere= ps.photonSphere()
+photonsphere.psPlot()
+photonsphere.pixelate()
+psData = photonsphere.Fits()
+
+# Composed image with the photon sphere
+completeImage = diskImage + psData
+
 # Stores the image in a name.fits file
-name = str(cfg.N) + "x" + str(cfg.N) + ".fits"
-imageData = FITS(diskImage, name, hdrData)
+name = cfg.fileName + ".fits"
+imageData = FITS(completeImage, name, hdrData)
 imageData.Write()
 imageData.showImage()
 

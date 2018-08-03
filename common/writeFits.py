@@ -1,5 +1,26 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""
+Created on Sun Apr 29 21:00:07 2018
+FITS writting module
+
+This module writes the .fits file with the created image.
+
+Class FITS has two procedures:
+- Write: wirtes the .fits file
+- showImage: shows the claculated image of the BH
+
+
+Input for the class: 
+name: Name of the output .fits file
+hdrData: matrix data with the calculated image
+
+@author: 
+"""
+
 import matplotlib.pyplot as plt
 from astropy.io import fits 
+import os
 
 class FITS:
     def __init__(self,info,name, hdrData):
@@ -7,9 +28,10 @@ class FITS:
         self.name = name
         self.hdrData = hdrData
         self.hdu = fits.PrimaryHDU(data = self.info)
-
         
     def Write(self):
+        if os.path.isfile(self.name):
+            os.remove(self.name)
         self.hdu.writeto(self.name)
         self.hdu.header['i'] = '1'
 

@@ -13,6 +13,11 @@ geoEq: Geodesic equations in Hamiltonian form
 initConds: Initial conditions for the integration 
 [t0, r0, theta0, phi0, k_t0, k_r0, k_theta0, k_phi0]
 
+rEH: radius of the event horizon
+
+intStep: integration step (affine parameter step)
+
+
 This module returns
 
 [t, r, theta, phi, k_t, k_r, k_theta, k_phi] : Position of the photon in 
@@ -22,6 +27,7 @@ j: Number of steps in the integration to arrive to the equatorial plane
 
 @author: ashcat
 """
+
 import numpy as np
 from scipy.integrate import odeint
 
@@ -33,24 +39,26 @@ def geoInt(geoEq, initConds, rEH = 0. ,intStep = 0.1):
     # Energy and Momentum constants
     E = iC[4]
     L = iC[7]
-    # Carter's Constant
+
+    # Carter's constant
     Carter = iC[6]**2 + ((np.cos(iC[2])**2)/(np.sin(iC[2])**2)) * L**2
      
-    
     # Tolerance in the location of the equatorial plane (cos †heta < tolerance)
     tolerance = 0.00005
+
     # Maximum number of steps admitted in the integration
-    jmax = 100000
+    jmax = 10000
     
     # First iteration (included to define the variable coords, where the solution will be stored)
     coords = odeint(geodesics,iC,[0,-intStep])
-    
+   
+    # Main Loop of integration
     j = 1
     while np.cos(coords[j,2]) > tolerance :
         coordloop = odeint(geodesics,coords[j],[0,-intStep])
 
         # Event Horizon Condition
-        if coordloop[1,1] <= rEH + 0.0000001 :
+        if coordloop[1,1] <= rEH + 0.000001 :
             return [0,0,0,0,0,0,0,0], j
         '''
         # Carter's Constant conservation condition
@@ -82,6 +90,7 @@ def geoInt(geoEq, initConds, rEH = 0. ,intStep = 0.1):
         if np.abs(percentualDiffr) > 1 :
             coordloop[1,4] = prNew
         '''
+
         # Stores new line of information in coords
         coords = np.concatenate((coords,[coordloop[1]]))
         
@@ -95,6 +104,7 @@ def geoInt(geoEq, initConds, rEH = 0. ,intStep = 0.1):
         j = j + 1
 
         if j > jmax:
+            print(j, coords[j-1,1])
             return [0,0,0,0,0,0,0,0], j
-        
+
     return coords[j-1,:], j

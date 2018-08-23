@@ -126,4 +126,4 @@ name = cfg.fileName + ".fits"
 imageData = FITS(completeImage, name, hdrData)
 imageData.Write()
 imageData.showImage()
-
+#####

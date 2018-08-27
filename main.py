@@ -4,8 +4,7 @@
 Created on Sun Apr 29 21:00:07 2018
 Main Module
 
-  
-
+  M
 @author: ashcat
 """
 from sys import exit
@@ -101,7 +100,7 @@ for j in range(0,numPixels):
         # Print progress
         perc = perc +1
         
-        print (" ", np.int(perc/(numPixels*numPixels)*100))
+        print (" ", np.int(perc/(numPixels*numPixels)*100.))
 
 
 # Constructs the image data using the accretion structure 

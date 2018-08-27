@@ -10,6 +10,10 @@ Configuration File
 """
 
 import numpy as np
+from astropy import constants as const
+from astropy import units as u
+
+
 
 
 ############## Metric Definition ################
@@ -20,9 +24,11 @@ Metric = "Schwarzschild"
 # "Schwarzschild" metric 
 # "Kerr" metric 
 
-# Parameters in the metric
 
-M = 1. ## Find the units of this mass 
+# Parameters in the metric
+Mb = 1.5 ## Find the units of this mass 
+Gc = const.G*(const.kpc)**-3*const.M_sun*(3.1e-7)**2*u.s**2*(u.kpc**3/(u.M_sun*u.yr**2))
+M = float(2*Mb*(Gc)*(const.c.to(u.kpc/u.yr))**-2*(u.M_sun/u.kpc))
 a = 0.7
 
 ########### Minkowski metric Options ############
@@ -55,7 +61,7 @@ Structure = 3
 
 # Parameters in the Structure
 
-R_out = 12.*M
+R_out = 12*M
 
 corotation = True
 
@@ -76,7 +82,7 @@ ScreenType = 1
 ############## Image Plane Options ##############
 
 # Screen size (in units of M)
-Ssize = 20.*M
+Ssize = 20*M
 
 
 ############# Point Camera Options ##############
@@ -92,7 +98,7 @@ FoV = np.pi/110.
 N = 32
 
 # Distance to the Black hole (in units of M)
-D = 1000.*M
+D = 10*M
 
 # Inclination of the image plane
 i = np.pi/2.5

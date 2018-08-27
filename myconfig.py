@@ -14,7 +14,7 @@ import numpy as np
 
 ############## Metric Definition ################
 
-Metric = "Kerr"
+Metric = "Schwarzschild"
 
 # "Minkowski" metric 
 # "Schwarzschild" metric 
@@ -22,7 +22,7 @@ Metric = "Kerr"
 
 # Parameters in the metric
 
-M = 1.
+M = 1. ## Find the units of this mass 
 a = 0.7
 
 ########### Minkowski metric Options ############
@@ -89,7 +89,7 @@ FoV = np.pi/110.
 
 # Resolution of the square screen: 
 # Number of pixels in each direction of the screen (N X N)
-N = 256
+N = 32
 
 # Distance to the Black hole (in units of M)
 D = 1000.*M

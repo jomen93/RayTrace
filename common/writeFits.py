@@ -20,6 +20,8 @@ hdrData: matrix data with the calculated image
 
 import matplotlib.pyplot as plt
 from astropy.io import fits 
+import myconfig as cfg
+from matplotlib import cm
 import os
 
 class FITS:
@@ -40,7 +42,10 @@ class FITS:
             fits.setval(self.name, j, value=self.hdrData[j])
 
     def showImage(self):
-        plt.imshow(fits.open(self.name)[0].data)
+        plt.imshow(fits.open(self.name)[0].data,cmap = cm.afmhot)
+        plt.xlabel("$x$ [pc]")
+        plt.ylabel("$y$ [pc]")
+        plt.savefig(str(cfg.N)+"x"+str(cfg.N))
         plt.colorbar()
         plt.show()
 

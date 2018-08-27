@@ -46,4 +46,9 @@ def initCond(x, k, g):
     p_phi =gphph*pphi
     
     return [t, r, theta, phi, p_t, p_r, p_th, p_phi]
+
+
+
+
+
         

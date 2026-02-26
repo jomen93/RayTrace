@@ -1,54 +1,62 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Created on Sun Apr 29 21:00:07 2018
-Initial Conditions Module
+Initial conditions preparation for geodesic integration.
 
-This module prepares the initial values of coordinates and momentum to
-solve the geodesic equations.
+Transforms contravariant momentum components to covariant components
+using the metric at the photon's initial position.
 
-Input    
-x: initial coordinates calculated for a particular photon
-k: initial components of the momentum for a particular photon
-g: metric components at the photon location
+Author: Johan Mendez
+Copyright (c) 2024
 
-This module returns
-
-[t, r, theta, phi, k_t, k_r, k_theta, k_phi] :initial conditions needed to solve 
-the geodesic equations (covariant components of the momentum vector)
-
-@author: ashcat
+Mathematical Formulation:
+    Given contravariant momentum k^μ (components kt, kr, ktheta, kphi)
+    and metric g_μν, computes covariant momentum:
+    
+        p_μ = g_μν k^ν
+    
+    This lowers the index for Hamiltonian formulation of geodesic equations.
 """
 
-def initCond(x, k, g):
+from typing import List
+
+
+def initCond(x: List[float], k: List[float], g: List[float]) -> List[float]:
+    """
+    Prepare initial conditions for geodesic integration.
     
-    # Coordinates and momentum components
-    t = x[0]
-    r = x[1]
-    theta = x[2]
-    phi = x[3]
-    pt = k[0]
-    pr = k[1]
-    pth = k[2]
-    pphi = k[3]
+    Transforms position and momentum from image plane coordinates to
+    the full phase space state vector required by the integrator.
     
-    # Metric components
-    gtt = g[0]
-    gtphi = g[1]
-    grr = g[2]
-    gthth = g[3]
-    gphph = g[4]
+    Args:
+        x: Position [t, r, theta, phi] in spherical coordinates
+        k: Contravariant momentum [kt, kr, ktheta, kphi]
+        g: Metric components [gtt, gtphi, grr, gthth, gphph] at position x
+        
+    Returns:
+        State vector [t, r, theta, phi, p_t, p_r, p_theta, p_phi]
+        with covariant momentum components
+        
+    Example:
+        >>> x = [0.0, 100.0, np.pi/3, 0.0]  # Position
+        >>> k = [1.0, -0.5, 0.0, 0.02]      # Momentum (contravariant)
+        >>> g = metric(x)                    # Metric at position
+        >>> ic = initCond(x, k, g)
+        >>> print(f"Initial state: {ic}")
+    """
+    # Unpack position
+    t, r, theta, phi = x
     
-    # Lower k
-    p_t = gtt*pt + gtphi*pphi
-    p_r = grr*pr
-    p_th = gthth*pth
-    p_phi =gphph*pphi
+    # Unpack contravariant momentum
+    pt, pr, pth, pphi = k
+    
+    # Unpack metric components
+    gtt, gtphi, grr, gthth, gphph = g
+    
+    # Lower indices: p_μ = g_μν k^ν
+    p_t = gtt * pt + gtphi * pphi
+    p_r = grr * pr
+    p_th = gthth * pth
+    p_phi = gphph * pphi
     
     return [t, r, theta, phi, p_t, p_r, p_th, p_phi]
-
-
-
-
-
-        

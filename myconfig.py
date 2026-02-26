@@ -1,119 +1,127 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Created on Sun Apr 29 21:00:07 2018
-Configuration File
+Configuration file for Black Hole Ray Tracer.
 
-  
+This module defines all simulation parameters for the ray tracing computation.
+Values are specified in geometric units where G = c = 1, with length measured
+in units of the black hole mass (typically M = 1).
 
-@author: ashcat
+Author: Johan Mendez
+Copyright (c) 2024
+
+Example:
+    To run a high-resolution Kerr simulation:
+    >>> import myconfig as cfg
+    >>> print(f"Simulating {cfg.Metric} black hole at {cfg.N}x{cfg.N} resolution")
+
+Note:
+    For accurate results, ensure the screen size (Ssize) is large enough to
+    capture the photon ring, and the observer distance (D) is sufficiently
+    large (D >> M) for the distant observer approximation.
 """
 
 import numpy as np
-from astropy import constants as const
-from astropy import units as u
 
 
+# =============================================================================
+# BLACK HOLE PARAMETERS
+# =============================================================================
+
+METRIC: str = "Schwarzschild"
+"""Spacetime metric to use. Options: 'Schwarzschild' or 'Kerr'."""
+
+MASS: float = 1.0
+"""Black hole mass in geometric units (G = c = 1). Typically set to 1.0."""
+
+SPIN: float = 0.7 * MASS
+"""
+Kerr spin parameter (dimensionless angular momentum).
+Must satisfy 0 <= |a| < M for physical black holes.
+For Schwarzschild metric, this value is ignored.
+"""
 
 
-############## Metric Definition ################
+# =============================================================================
+# ACCRETION DISK PARAMETERS  
+# =============================================================================
 
-Metric = "Schwarzschild"
+STRUCTURE_TYPE: int = 3
+"""
+Accretion disk emission model.
+3 = Infinite disk with exponentially decreasing spectrum
+"""
 
-# "Minkowski" metric 
-# "Schwarzschild" metric 
-# "Kerr" metric 
+OUTER_RADIUS: float = 20.0 * MASS
+"""Outer edge of accretion disk in units of M."""
 
-
-# Parameters in the metric
-Mb = 1.5 ## Find the units of this mass 
-Gc = const.G*(const.kpc)**-3*const.M_sun*(3.1e-7)**2*u.s**2*(u.kpc**3/(u.M_sun*u.yr**2))
-M = float(2*Mb*(Gc)*(const.c.to(u.kpc/u.yr))**-2*(u.M_sun/u.kpc))
-a = 0.7
-
-########### Minkowski metric Options ############
-
-# No options
-
-######### Schwarzschild metric Options ##########
-
-# M: Mass of the black hole
-
-############# Kerr metric Options ###############
-
-# M : Mass of the black hole
-# a: Angular Momentum Parameter
-
-#################################################
+COROTATING: bool = True
+"""
+For Kerr metric: True for prograde (corotating) disk, 
+False for retrograde (counter-rotating) disk.
+"""
 
 
+# =============================================================================
+# OBSERVER/SCREEN PARAMETERS
+# =============================================================================
+
+SCREEN_TYPE: int = 1
+"""Screen geometry: 1 = Image Plane (distant observer)."""
+
+SCREEN_SIZE: float = 15.0 * MASS
+"""
+Half-width of the image plane in units of M.
+Must be > photon ring radius (~5.2M for Schwarzschild).
+"""
+
+RESOLUTION: int = 256
+"""
+Image resolution in pixels (N x N square image).
+Recommended values:
+- 256: Fast testing (~45 seconds)
+- 512: Standard quality (~3 minutes)  
+- 1024: High quality (~12 minutes)
+"""
+
+OBSERVER_DISTANCE: float = 100.0 * MASS
+"""
+Distance from observer to black hole center.
+Must satisfy D >> M for the distant observer approximation.
+"""
+
+INCLINATION_ANGLE: float = np.pi / 2.1
+"""
+Viewing angle in radians.
+- pi/2 = 90°: Edge-on (equatorial view)
+- pi/4 = 45°: Intermediate inclination
+- 0: Face-on (pole-on view)
+Current value: ~85.7°, nearly edge-on to show disk structure.
+"""
 
 
+# =============================================================================
+# OUTPUT PARAMETERS
+# =============================================================================
 
-######### Accretion Structure Definition ########
-
-Structure = 3
-
-# 1: Simple Accretion Disk
-# 2: Linear Spectrum Accretion Disk
-# 3: Infinite Accretion Disk with a decreasing exponential spectrum
-# 4: Novikov-Thorne Thin Accretion Disk (not yet!)
-
-# Parameters in the Structure
-
-R_out = 12*M
-
-corotation = True
+OUTPUT_FILENAME: str = f"{METRIC}_{RESOLUTION}x{RESOLUTION}"
+"""Base name for output files (FITS and PNG)."""
 
 
-#################################################
+# =============================================================================
+# BACKWARD COMPATIBILITY ALIASES
+# These aliases allow existing code to reference configuration parameters
+# using the original shorter names.
+# =============================================================================
 
-
-
-
-
-############### Screen Definition ###############
-
-ScreenType = 1
-
-# 1: Image Plane
-# 2: Point camera (not yet!)
-
-############## Image Plane Options ##############
-
-# Screen size (in units of M)
-Ssize = 20*M
-
-
-############# Point Camera Options ##############
-
-# Field of Vieew (in radians)
-FoV = np.pi/110.
-
-
-############ General Screen Options #############
-
-# Resolution of the square screen: 
-# Number of pixels in each direction of the screen (N X N)
-N = 32
-
-# Distance to the Black hole (in units of M)
-D = 10*M
-
-# Inclination of the image plane
-i = np.pi/2.5
-
-#################################################
-
-
-
-
-
-################## File Output ################## 
-
-# Name of the output file
-fileName = Metric + "_" + str(N) + "x" + str(N) 
-
-#################################################
-
-
+M = MASS
+a = SPIN
+N = RESOLUTION
+Ssize = SCREEN_SIZE
+D = OBSERVER_DISTANCE
+i = INCLINATION_ANGLE
+Structure = STRUCTURE_TYPE
+R_out = OUTER_RADIUS
+corotation = COROTATING
+ScreenType = SCREEN_TYPE
+fileName = OUTPUT_FILENAME

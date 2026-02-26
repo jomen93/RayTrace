@@ -1,0 +1,36 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+.pytest_cache/
+
+# Virtual environment
+venv/
+env/
+
+# C++ build files
+*.o
+*.so
+*.dylib
+*.a
+
+# Output files
+output/*.fits
+output/*.png
+output/*.jpg
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Temporary
+temp*.jpg
+temp*.png

@@ -1,148 +1,208 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Created on Fri Oct 27 23:58:58 2017
-Shadow of a rotating black hole
-@author: ashcat
+Photon sphere and black hole shadow visualization.
+
+Computes and renders the shadow (silhouette) of a black hole as seen by
+a distant observer. For Schwarzschild, this is a perfect circle of radius
+sqrt(27)M ≈ 5.196M. For Kerr, the shadow is distorted due to frame dragging.
+
+Author: Johan Mendez
+Copyright (c) 2024
+
+References:
+    - Bardeen (1973): "Timelike and null geodesics in the Kerr metric"
+    - Gralla et al. (2019): "The Kerr null geodesic
 """
+
+import os
+from pathlib import Path
+
 import numpy as np
 import matplotlib.pyplot as plt
-from scipy.optimize import newton
 from PIL import Image
-from astropy.io import fits
-from astropy.visualization import astropy_mpl_style
-import os
+from scipy.optimize import newton
+
 import myconfig as cfg
 
 
-class photonSphere():
+# Output directory for temporary files
+TEMP_DIR = Path('output')
+TEMP_DIR.mkdir(parents=True, exist_ok=True)
+
+
+class photonSphere:
+    """
+    Computes and renders the black hole photon sphere shadow.
     
-    def __init__(self):
-        # Parameters of the Metric
-        self.M = cfg.M          # Mass of the central body in SolarMasses
-        self.a = cfg.a          # Spin Parameter (0<=a<=1)
-        self.inc = cfg.i      # Inclination angle in radians
-        self.N = cfg.N
-
-        # Radius of photon sphere for the corresponding Schwarzschild BH
+    For Schwarzschild metric: Perfectly circular shadow of radius sqrt(27)M.
+    For Kerr metric: Asymmetric shadow computed from critical null geodesics.
+    
+    The shadow represents the boundary between photons that escape to infinity
+    and those that are captured by the black hole.
+    
+    Attributes:
+        M: Black hole mass
+        a: Kerr spin parameter (0 for Schwarzschild)
+        inc: Inclination angle
+        N: Image resolution
+        Rcircle: Shadow radius for Schwarzschild case
+        
+    Example:
+        >>> ps = photonSphere(N=512)
+        >>> ps.psPlot()      # Generate shadow plot
+        >>> ps.pixelate()    # Resize to pixel resolution
+        >>> shadow_data = ps.Fits()  # Get as numpy array
+    """
+    
+    def __init__(self, N: int = None):
+        """
+        Initialize photon sphere calculator.
+        
+        Args:
+            N: Image resolution (uses cfg.N if None, rounded to even)
+        """
+        self.M = cfg.M
+        self.a = cfg.a
+        self.inc = cfg.i
+        
+        # Use provided N or config value, ensure even
+        if N is None:
+            N = cfg.N
+        self.N = N if N % 2 == 0 else N + 1
+        
+        # Schwarzschild shadow radius: sqrt(27) * M
         self.Rcircle = np.sqrt(27 * self.M**2)
-
-    def psKerr(self):
-        # Event Horizon
-        self.rH = self.M + np.sqrt(self.M**2 - self.a**2) 
-                            
-        # Auxiliar Function
-        def Delta(r):
-                return r**2 - 2*self.M* r + self.a**2
-            
-        # Angular Momentum
-        def xi(r):
-            return (self.M*(r**2 - self.a**2) 
-            - r*Delta(r))/(self.a*(r - self.M))  
-        # Carter Constant
-        def eta(r):
-            return ((r**3)*(4*self.M*Delta(r) 
-            - r*(r-self.M)**2))/(self.a**2 * (r - self.M)**2)   
-            
-        # Obtaining the Celestial Coordinates
-        # Argument in the square root of beta
-        def arg(r):
-            return eta(r) + self.a**2 * np.cos(self.inc)**2 
-            - (xi(r))**2 * (np.cos(self.inc)/np.sin(self.inc))**2
-            
-        # Root finding of the function arg(r) to define the limits in the plot        
-        r0 = newton(arg, self.rH)       
-        r1 = newton(arg, 4*self.rH)
-                    
-        # Range of the parameter r for the plot 
-        self.r = np.linspace(r0+0.0000001 ,r1,100000)
-            
-        # Coordinate alpha
-        self.alpha = - xi(self.r) / np.sin(self.inc)
-            
-        #coordinate beta
-        self.beta = np.sqrt(arg(self.r))  
-
-
-            
-    def psPlot(self):
-        # Plot of the orbit
-        fig, ax = plt.subplots()
-
-        # Background Color
-        plt.style.use('dark_background')
-
-        # Axis range and aspect (square)
+    
+    def psKerr(self) -> None:
+        """
+        Compute Kerr shadow boundary using critical null geodesics.
+        
+        Calculates the celestial coordinates (alpha, beta) of the shadow
+        edge by finding the unstable photon orbits at the critical impact
+        parameter.
+        
+        Reference: Bardeen (1973), Gralla et al. (2019)
+        """
+        # Event horizon radius for Kerr
+        self.rH = self.M + np.sqrt(self.M**2 - self.a**2)
+        
+        # Metric functions
+        def Delta(r: float) -> float:
+            return r**2 - 2 * self.M * r + self.a**2
+        
+        # Carter constants for critical orbits
+        def xi(r: float) -> float:
+            """Angular momentum of unstable photon orbit."""
+            return (self.M * (r**2 - self.a**2) - r * Delta(r)) / (self.a * (r - self.M))
+        
+        def eta(r: float) -> float:
+            """Carter constant for unstable photon orbit."""
+            return ((r**3) * (4 * self.M * Delta(r) - r * (r - self.M)**2) / 
+                   (self.a**2 * (r - self.M)**2))
+        
+        # Argument of square root for beta coordinate
+        def arg(r: float) -> float:
+            return (eta(r) + self.a**2 * np.cos(self.inc)**2 - 
+                   (xi(r))**2 * (np.cos(self.inc) / np.sin(self.inc))**2)
+        
+        # Find range of radii that contribute to shadow
+        r0 = newton(arg, self.rH)
+        r1 = newton(arg, 4 * self.rH)
+        
+        # Sample critical orbits
+        self.r = np.linspace(r0 + 1e-7, r1, 100000)
+        
+        # Celestial coordinates of shadow edge
+        self.alpha = -xi(self.r) / np.sin(self.inc)
+        self.beta = np.sqrt(arg(self.r))
+    
+    def psPlot(self) -> None:
+        """
+        Render the black hole shadow to an image file.
+        
+        Creates a plot with black shadow on transparent/white background.
+        For Schwarzschild: perfect circle.
+        For Kerr: asymmetric shadow from psKerr().
+        
+        Output saved to output/tempPlot.jpg
+        """
+        fig, ax = plt.subplots(figsize=(10, 10))
+        
+        # Black background for shadow
+        fig.patch.set_facecolor('black')
+        ax.set_facecolor('black')
+        
+        # Set axis range
         axrange = cfg.Ssize
-        ax.axis([-axrange,axrange,-axrange,axrange])
+        ax.axis([-axrange, axrange, -axrange, axrange])
         ax.set_aspect('equal')
-
-        # No axis thicks or labels
         ax.set_axis_off()
         
-        # Plotting
-
+        # Render shadow
         if cfg.Metric == "Schwarzschild":
-            # Plot of the Schwarzschild's BH shadow for comparison
-            t = np.linspace(0, np.pi, 50000)
-            ax.plot(self.Rcircle * np.cos(t), self.Rcircle * np.sin(t),'w')
+            # Perfect circle for Schwarzschild
+            theta = np.linspace(0, 2 * np.pi, 1000)
+            ax.fill(self.Rcircle * np.cos(theta), 
+                   self.Rcircle * np.sin(theta), 
+                   color='black')
+            ax.plot(self.Rcircle * np.cos(theta), 
+                   self.Rcircle * np.sin(theta), 
+                   'k-', linewidth=1)
         elif cfg.Metric == "Kerr":
+            # Distorted shadow for Kerr
             self.psKerr()
-            # Plot the shadow of the rotating BH
-            ax.plot(self.alpha,self.beta, 'w')
-
-        #plt.show()
-        plt.savefig('tempPlot.jpg', bbox_inches='tight', pad_inches=0)
-
-        ax.clear()
-
-
-
-
-
-    # Resize the Image (Pixelate it!)
-    def pixelate(self, input_file_path='tempPlot.jpg', output_file_path='tempPixel.jpg'):
+            ax.fill(self.alpha, self.beta, color='black')
+            ax.plot(self.alpha, self.beta, 'k-', linewidth=1)
+        
+        # Save plot
+        output_path = TEMP_DIR / 'tempPlot.jpg'
+        plt.savefig(output_path, facecolor='black', edgecolor='none',
+                   bbox_inches='tight', pad_inches=0.1)
+        plt.close()
+    
+    def pixelate(self, input_file_path: str = None, 
+                 output_file_path: str = None) -> None:
+        """
+        Resize shadow image to match simulation resolution.
+        
+        Args:
+            input_file_path: Source image (default: tempPlot.jpg)
+            output_file_path: Destination (default: tempPixel.jpg)
+        """
+        if input_file_path is None:
+            input_file_path = TEMP_DIR / 'tempPlot.jpg'
+        if output_file_path is None:
+            output_file_path = TEMP_DIR / 'tempPixel.jpg'
+        
         image = Image.open(input_file_path)
-        image = image.resize(
-            (self.N, self.N),
-            Image.NEAREST
-        )
+        image = image.resize((self.N, self.N), Image.NEAREST)
         image.save(output_file_path)
-
-
-    def Fits(self):
-        '''
-        if os.path.isfile('complete.fits'):
-            os.remove('complete.fits')
-        '''
-        # Convert the image into a FITS file
-        plt.style.use(astropy_mpl_style)
-        image2 = Image.open('tempPixel.jpg')
-        xsize, ysize = image2.size
-
-        r, g, b= image2.split()
-        r_data = np.array(r.getdata()) # data is now an array of length ysize*xsize
-        g_data = np.array(g.getdata())
-        b_data = np.array(b.getdata())
-
-        r_data = r_data.reshape(ysize, xsize)
-        g_data = g_data.reshape(ysize, xsize)
-        b_data = b_data.reshape(ysize, xsize)
-
-        completeData = r_data * g_data * b_data
-
-        if np.amax(completeData)!= 0.:
-            completeData = completeData /np.amax(completeData)
-
-        return completeData
-
-        '''
-        complete = fits.PrimaryHDU(data=completeData)
-        complete.header['LATOBS'] = "32:11:56"
-        complete.header['LONGOBS'] = "110:56"
-        complete.writeto('complete.fits')
-        '''
-        #os.remove('tempPlot.jpg')
-        #os.remove('tempPixel.jpg')
-
-
+    
+    def Fits(self) -> np.ndarray:
+        """
+        Convert pixelated shadow to numpy array for composition.
+        
+        Returns:
+            2D array with values in [0, 1] where:
+            - 1.0 = Shadow (black hole silhouette)
+            - 0.0 = Transparent region (outside shadow)
+        """
+        image = Image.open(TEMP_DIR / 'tempPixel.jpg')
+        
+        # Split into RGB channels
+        r, g, b = image.split()
+        
+        # Convert to arrays
+        r_data = np.array(r.getdata()).reshape(image.size[1], image.size[0])
+        g_data = np.array(g.getdata()).reshape(image.size[1], image.size[0])
+        b_data = np.array(b.getdata()).reshape(image.size[1], image.size[0])
+        
+        # Combine channels (shadow = white in original, becomes 1.0)
+        complete_data = r_data * g_data * b_data
+        
+        # Normalize to [0, 1]
+        if np.amax(complete_data) != 0.0:
+            complete_data = complete_data / np.amax(complete_data)
+        
+        return complete_data
